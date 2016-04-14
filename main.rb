@@ -11,11 +11,7 @@ class MainApp < Sinatra::Base
 
   get '/' do
     send_message()
-    hello() + ' world'
-  end
-
-  def hello()
-    'hello'
+    'done'
   end
 
   def send_message()

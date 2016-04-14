@@ -1,3 +1,6 @@
-
+.bundle
+.env
+Gemfile.lock
+/tmp/
 /vendor/bundle/ruby
 /logs/*.log
