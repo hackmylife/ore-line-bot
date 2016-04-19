@@ -10,11 +10,18 @@ class MainApp < Sinatra::Base
   Dotenv.load
 
   get '/' do
-    send_message()
+    'done'
+  end
+  post '/callback' do
+    params = JSON.parse request.body.read
+    result = params['result']
+    result.each{|message|
+      send_message(message['content']['text'])
+    }
     'done'
   end
 
-  def send_message()
+  def send_message(text)
     conn = Faraday.new(:url => 'https://trialbot-api.line.me') do |builder|
       builder.request  :url_encoded
       builder.response :logger
@@ -36,7 +43,7 @@ class MainApp < Sinatra::Base
         'content' => {
           'contentType' => 1,
           'toType' => 1,
-          'text' =>  "hello!"
+          'text' =>  text
         }
       }.to_json
     end
