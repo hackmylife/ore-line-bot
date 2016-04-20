@@ -16,7 +16,7 @@ class MainApp < Sinatra::Base
     params = JSON.parse request.body.read
     result = params['result']
     result.each{|message|
-      send_message(message['from'], message['content']['text'])
+      send_message(message['content']['from'], message['content']['text'])
     }
     'done'
   end
