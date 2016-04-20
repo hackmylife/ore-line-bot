@@ -16,12 +16,12 @@ class MainApp < Sinatra::Base
     params = JSON.parse request.body.read
     result = params['result']
     result.each{|message|
-      send_message(message['content']['text'])
+      send_message(message['from'], message['content']['text'])
     }
     'done'
   end
 
-  def send_message(text)
+  def send_message(to, text)
     conn = Faraday.new(:url => 'https://trialbot-api.line.me') do |builder|
       builder.request  :url_encoded
       builder.response :logger
@@ -37,7 +37,7 @@ class MainApp < Sinatra::Base
         'X-Line-Trusted-User-With-ACL' => ENV['LINE_CHANNEL_MID']
       }
       req.body = {
-        'to' => [ENV['TO_MID']], # callback受け取れるようになるまでenvにで代用
+        'to' => [to],
         'toChannel' => "1383378250",
         'eventType' => "138311608800106203",
         'content' => {

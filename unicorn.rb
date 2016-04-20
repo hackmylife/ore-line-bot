@@ -1,7 +1,7 @@
 # coding: utf-8
 
 # プロジェクトディレクトリへのパス
-@path = "/home/hackmylife/work/lang/ruby/ore-line-bot/"
+@path = File.expand_path(File.dirname($0)).sub(/vendor.*$/, '')
 
 worker_processes 1 # CPUのコア数に揃える
 working_directory @path
