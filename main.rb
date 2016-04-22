@@ -9,7 +9,7 @@ require './lib/line/bot/client'
 class MainApp < Sinatra::Base
 
   Dotenv.load
-  @client = Line::Bot::Client.new()
+  @@client = Line::Bot::Client.new()
 
   get '/' do
     'done'
@@ -27,7 +27,7 @@ class MainApp < Sinatra::Base
   end
 
   def echo(message) 
-    @client.send_message(message['content']['from'], message['content']['text'])
+    @@client.send_message(message['content']['from'], message['content']['text'])
   end
     
 end
