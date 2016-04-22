@@ -5,6 +5,7 @@ require 'json'
 require 'faraday'
 require 'dotenv'
 require './lib/line/bot/client'
+require './lib/db'
 
 class MainApp < Sinatra::Base
 
@@ -29,6 +30,12 @@ class MainApp < Sinatra::Base
   def echo(message) 
     @@client.send_message(message['content']['from'], message['content']['text'])
   end
+
+  def user_check(message) 
+    mid = message['content']['from']
     
+  end
+
+  
 end
 
