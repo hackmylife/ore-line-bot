@@ -26,9 +26,9 @@ class MainApp < Sinatra::Base
     'done'
   end
 
-  def echo(message) {
+  def echo(message) 
     client.send_message(message['content']['from'], message['content']['text'])
-  }
-  
+  end
+    
 end
 
