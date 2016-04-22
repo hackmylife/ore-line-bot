@@ -4,21 +4,21 @@ require 'sinatra/reloader'
 require 'json'
 require 'faraday'
 require 'dotenv'
-
+require './lib/line/bot/client'
 
 class MainApp < Sinatra::Base
 
   Dotenv.load
-  include './lib/line/bot/client'
 
   get '/' do
     'done'
   end
   post '/callback' do
     params = JSON.parse request.body.read
+    client = Line::Bot::Client.new()
     result = params['result']
     result.each{|message|
-      Line::Bot::Client.send_message(message['content']['from'], message['content']['text'])
+      client.send_message(message['content']['from'], message['content']['text'])
     }
     'done'
   end
