@@ -4,11 +4,12 @@ require 'sinatra/reloader'
 require 'json'
 require 'faraday'
 require 'dotenv'
-require './lib/line/bot/client'
+
 
 class MainApp < Sinatra::Base
 
   Dotenv.load
+  include './lib/line/bot/client'
 
   get '/' do
     'done'
