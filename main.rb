@@ -9,19 +9,26 @@ require './lib/line/bot/client'
 class MainApp < Sinatra::Base
 
   Dotenv.load
+  client = Line::Bot::Client.new()
 
   get '/' do
     'done'
   end
+  
   post '/callback' do
     params = JSON.parse request.body.read
-    client = Line::Bot::Client.new()
+
     result = params['result']
     result.each{|message|
-      client.send_message(message['content']['from'], message['content']['text'])
+      echo(message)
     }
+
     'done'
   end
 
+  def echo(message) {
+    client.send_message(message['content']['from'], message['content']['text'])
+  }
+  
 end
 
