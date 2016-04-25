@@ -4,7 +4,7 @@ require 'active_record'
 ActiveRecord::Base.establish_connection(
   :adapter=> "mysql2",
   :host => "localhost",
-  :database => "workbot",
+  :database => "timerbot",
   :username => "root"
 )
 
@@ -14,5 +14,5 @@ end
 class Work < ActiveRecord::Base
 end
 
-class Task < ActiveRecord::Base
+class Timer < ActiveRecord::Base
 end

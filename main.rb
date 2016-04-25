@@ -21,6 +21,7 @@ class MainApp < Sinatra::Base
 
     result = params['result']
     result.each{|message|
+      user_check(message)
       echo(message)
     }
 
@@ -31,11 +32,14 @@ class MainApp < Sinatra::Base
     @@client.send_message(message['content']['from'], message['content']['text'])
   end
 
-  def user_check(message) 
+  def user_check(message)
     mid = message['content']['from']
-    
+    unless User.existes?(mid: mid) then
+      user = User.new
+      user.mid = mid
+      user.save
+    end
   end
-
   
 end
 
