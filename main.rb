@@ -35,8 +35,11 @@ class MainApp < Sinatra::Base
   def user_check(message)
     mid = message['content']['from']
     unless User.exists?(mid: mid) then
+      profile = @@client.get_profile(mid).fetch('contacts').first
       user = User.new
       user.mid = mid
+      user.display_name = profile['displayName']
+      user.created_at = time.now.to_i
       user.save
     end
   end
