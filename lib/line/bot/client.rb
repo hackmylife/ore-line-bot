@@ -4,7 +4,7 @@ module Line
   module Bot
     class Client
 
-      def initiallize()
+      def initialize()
         @conn = Faraday.new(:url => 'https://trialbot-api.line.me') do |builder|
           builder.request  :url_encoded
           builder.response :logger
