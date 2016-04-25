@@ -34,7 +34,7 @@ class MainApp < Sinatra::Base
 
   def user_check(message)
     mid = message['content']['from']
-    unless User.existes?(mid: mid) then
+    unless User.exists?(mid: mid) then
       user = User.new
       user.mid = mid
       user.save
