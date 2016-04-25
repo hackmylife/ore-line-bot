@@ -36,9 +36,9 @@ module Line
       end
 
       def get_profile(mid)
-        _post('/v1/profiles', {
+        _get('/v1/profiles', {
             'mids' => mid,
-          }.to_json)
+          })
       end        
 
       def _post(url, body)
@@ -56,6 +56,21 @@ module Line
         return {}
       end
 
- end
+      def _get(url, params)
+        response = @conn.get do |req|
+          req.url url
+          req.headers = build_headers()
+          req.params = params
+        end
+        if response.success? then
+          return JSON.parse response.body
+        else
+          result = JSON.parse response.body
+          p result
+        end
+        return {}
+      end
+
+    end
   end
 end
