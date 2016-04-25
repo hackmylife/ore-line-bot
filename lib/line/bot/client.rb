@@ -50,7 +50,7 @@ module Line
         if response.success? then
           return JSON.parse response.body
         else
-          result = JSON.parse result.body
+          result = JSON.parse response.body
           p result
         end
         return {}
