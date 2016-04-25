@@ -1,11 +1,13 @@
 require 'rubygems'
 require 'sinatra/base'
 require 'sinatra/reloader'
+require 'date'
 require 'json'
 require 'faraday'
 require 'dotenv'
 require './lib/line/bot/client'
 require './lib/db'
+
 
 class MainApp < Sinatra::Base
 
@@ -39,7 +41,7 @@ class MainApp < Sinatra::Base
       user = User.new
       user.mid = mid
       user.display_name = profile['displayName']
-      user.created_at = time.now.to_i
+      user.created_at = Time.now.to_i
       user.save
     end
   end
