@@ -1,4 +1,5 @@
 require 'faraday'
+require 'json'
 
 module Line
   module Bot
@@ -22,10 +23,7 @@ module Line
       end
       
       def send_message(to, text)
-        @conn.post do |req|
-          req.url '/v1/events'
-          req.headers = build_headers()
-          req.body = {
+        _post('/v1/events', {
             'to' => [to],
             'toChannel' => "1383378250",
             'eventType' => "138311608800106203",
@@ -34,20 +32,30 @@ module Line
               'toType' => 1,
               'text' =>  text
             }
-          }.to_json
-        end
+          }.to_json)
       end
 
       def get_profile(mid)
-        @conn.post do |req|
-          req.url '/v1/profiles'
-          req.headers = build_headers()
-          req.body = {
+        _post('/v1/profiles', {
             'mids' => mid,
-          }.to_json
-        end        
+          }.to_json)
+      end        
+
+      def _post(url, body)
+        response = @conn.post do |req|
+          req.url url
+          req.headers = build_headers()
+          req.body = body
+        end
+        if response.success? then
+          return JSON.parse response.body
+        else
+          result = JSON.parse result.body
+          p result
+        end
+        return {}
       end
 
-    end
+ end
   end
 end
