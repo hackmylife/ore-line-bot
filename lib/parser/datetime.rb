@@ -2,7 +2,7 @@
 require 'date'
 
 module Parser
-  module DateTime
+  class DateTime
 
     FORMAT = [
       '%Y:%m:%d %H:%M',
@@ -13,6 +13,9 @@ module Parser
       '%Y:%m:%d %H:%M:%S',
       '%Y/%m/%d %H:%M:%S',
     ]
+
+    def initialize()
+    end
 
     def parse(time_str)
       return parse_time_fromat(time_str) || parse_regex(time_str)
