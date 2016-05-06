@@ -7,6 +7,7 @@ require 'faraday'
 require 'dotenv'
 require './lib/line/bot/client'
 require './lib/db'
+require './lib/parser/datetime'
 
 
 class MainApp < Sinatra::Base
@@ -24,12 +25,26 @@ class MainApp < Sinatra::Base
     result = params['result']
     result.each{|message|
       user_check(message)
+      timer(message)
       echo(message)
     }
 
     'done'
   end
 
+  def timer(message)
+    text = message['content']['text']
+    date = Parser::DateTime.parse(text);
+    if date.present?
+      text.match(/^[\s]*\s(^[\s]*)/)
+      label = $1
+      print date + ': ' + label 
+      return true
+    else
+      return false
+    end
+  end
+  
   def echo(message) 
     @@client.send_message(message['content']['from'], message['content']['text'])
   end
