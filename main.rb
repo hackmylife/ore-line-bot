@@ -34,7 +34,8 @@ class MainApp < Sinatra::Base
 
   def timer(message)
     text = message['content']['text']
-    date = Parser::DateTime.parse(text);
+    parser = Parser::DateTime.new()
+    date = parser.parse(text);
     if date.present?
       text.match(/^[\s]*\s(^[\s]*)/)
       label = $1
