@@ -26,7 +26,6 @@ class MainApp < Sinatra::Base
     result.each{|message|
       user_check(message)
       timer(message)
-      echo(message)
     }
 
     'done'
@@ -37,9 +36,9 @@ class MainApp < Sinatra::Base
     parser = Parser::Timer.new()
     date = parser.parse(text);
     if date.present?
-      text.match(/^[\s]*\s(^[\s]*)/)
-      label = $1
-      print date + ': ' + label 
+      label = text.split(' ').last
+      p date.to_s + ': ' + label 
+      @@client.send_message(message['content']['from'], date.to_s + label)
       return true
     else
       return false

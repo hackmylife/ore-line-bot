@@ -36,13 +36,16 @@ module Parser
     def parse_regex(time_srt)
       # min later expression
       if time_srt.match(/([0-9０-９]+)\s*(?:分|min)/) then
-        return Time.now + $1.to_i * 60
+        after = $1.to_i * 60
+        return Time.now + after
       end
 
       # houre later expression
       if time_srt.match(/([0-9０-９]+)\s*(?:時|hour)/) then
-        return Time.now + $1.to_i * 3600
+        after = $1.to_i * 3600
+        return Time.now + after
       end
+      return nil
 
     end
   end
