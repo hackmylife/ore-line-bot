@@ -2,7 +2,7 @@
 require 'date'
 
 module Parser
-  class DateTime
+  class Timer
 
     FORMAT = [
       '%Y:%m:%d %H:%M',
