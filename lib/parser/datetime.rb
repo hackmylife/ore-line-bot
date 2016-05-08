@@ -18,7 +18,7 @@ module Parser
     end
 
     def parse(time_str)
-      return parse_time_fromat(time_str) || parse_regex(time_str)
+      return parse_regex(time_str) || parse_time_fromat(time_str) 
     end
 
     def parse_time_fromat(time_srt)
@@ -26,6 +26,7 @@ module Parser
       FORMAT.each do |format|
         begin
           date = DateTime.strptime(time_srt, format)
+          date = date - Rational(9, 24)
           break
         rescue ArgumentError
         end
@@ -41,7 +42,7 @@ module Parser
       end
 
       # houre later expression
-      if time_srt.match(/([0-9０-９]+)\s*(?:時|hour)/) then
+      if time_srt.match(/([0-9０-９]+)\s*(?:時間後|hour)/) then
         after = $1.to_i * 3600
         return Time.now + after
       end

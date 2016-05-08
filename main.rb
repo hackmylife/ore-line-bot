@@ -37,8 +37,14 @@ class MainApp < Sinatra::Base
     date = parser.parse(text);
     if date.present?
       label = text.split(' ').last
-      p date.to_s + ': ' + label 
-      @@client.send_message(message['content']['from'], date.to_s + label)
+      mid = message['content']['from']
+      timer = Timer.new
+      timer.mid = mid
+      timer.alert_at = date.to_i
+      timer.created_at = Time.now.to_i
+      timer.name = label
+      timer.save
+      @@client.send_message(mid, date.to_s + label)
       return true
     else
       return false
