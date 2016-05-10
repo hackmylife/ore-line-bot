@@ -5,13 +5,18 @@ module Parser
   class Timer
 
     FORMAT = [
-      '%Y:%m:%d %H:%M',
       '%Y/%m/%d %H:%M',
-      '%Y年 %m月 %d日 %H時 %M分',
-      '%H時 %M分',
+      '%Y-%m-%d %H:%M',
+      '%Y年 %m月 %d日 %H: %M',
+      '%H: %M',
       '%H時',
-      '%Y:%m:%d %H:%M:%S',
+      '%Y-%m-%d %H:%M:%S',
       '%Y/%m/%d %H:%M:%S',
+      '%m/%d %H:%M',
+      '%m-%d %H:%M',
+      '%m月 %d日 %H: %M',
+      '%Y-%m-%d',
+      '%Y/%m/%d',
     ]
 
     def initialize()
