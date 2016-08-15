@@ -31,7 +31,7 @@ module Parser
       FORMAT.each do |format|
         begin
           date = DateTime.strptime(time_srt, format)
-          date = date - Rational(9, 24)Sterben
+          date = date - Rational(9, 24)
           break
         rescue ArgumentError
         end
