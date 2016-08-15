@@ -5,18 +5,18 @@ module Parser
   class Timer
 
     FORMAT = [
-      '%Y/%m/%d %H:%M %z',
-      '%Y-%m-%d %H:%M %z',
-      '%Y年 %m月 %d日 %H: %M %z',
-      '%H: %M %z',
-      '%H時 %z',
-      '%Y-%m-%d %H:%M:%S %z',
-      '%Y/%m/%d %H:%M:%S %z',
-      '%m/%d %H:%M %z',
-      '%m-%d %H:%M %z',
-      '%m月 %d日 %H: %M %z',
-      '%Y-%m-%d %z',
-      '%Y/%m/%d %z',
+      '%Y/%m/%d %H:%M',
+      '%Y-%m-%d %H:%M',
+      '%Y年 %m月 %d日 %H: %M',
+      '%H: %M',
+      '%H時',
+      '%Y-%m-%d %H:%M:%S',
+      '%Y/%m/%d %H:%M:%S',
+      '%m/%d %H:%M',
+      '%m-%d %H:%M',
+      '%m月 %d日 %H: %M',
+      '%Y-%m-%d',
+      '%Y/%m/%d',
     ]
 
     def initialize()
@@ -30,8 +30,8 @@ module Parser
       date = nil
       FORMAT.each do |format|
         begin
-          date = DateTime.strptime(time_srt + ' +09:00', format)
-          date = date - Rational(9, 24)
+          date = DateTime.strptime(time_srt, format)
+          date = date - Rational(9, 24)Sterben
           break
         rescue ArgumentError
         end
